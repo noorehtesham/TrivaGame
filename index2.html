@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>	Totally Trivial Trivia</title>
+	<meta charset= "UTF-8">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div id="game">
+		<h1> Totally Trivial Trivia! </h1>
+		<button id="start" value="Start">Start</button>
+		<br>
+		
+		<div id="questions">
+			<div id="timer"></div>
+			<div class="row">
+				<p id="question1"> Who is the CEO of pixar? </p>
+				<input type="radio" id="option1" name="button" value="choice1" class="answerbutton">Jeff Bezos<br>
+				<input type="radio" id="option2" name="button" value="John Lasseter" class="answerbutton correct">John Lasseter<br>
+				<input type="radio" id="option3" name="button" value="choice3" class="answerbutton">Noor Ehtesham<br>
+				<input type="radio" id="option4" name="button" value="choice4" class="answerbutton">Steve Jobs<br>
+
+			</div>
+			<br>
+			<div class="row">
+				<p id="question2">In the movie The Terminator, what is the name of the company that created Skynet?" </p>
+				<input type="radio" id="choice1" name="button1" value="Cyberdone Systems" class="answerbutton correct">Cyberdone Systems<br>
+				<input type="radio" id="choice2" name="button1" value="choice2" class="answerbutton">Amazon<br>
+				<input type="radio" id="choice3" name="button1" value="choice3" class="answerbutton">MetLife<br>
+				<input type="radio" id="choice4" name="button1" value="choice4" class="answerbutton">Accenture
+			</div>
+			<br>
+
+			
+			<div class= "row">
+				<p id="question3"> What is the name of Nemo's dad in the movie "Finding Nemo?" </p>
+				<input type="radio" id="button1" name="button2" value="choice1" class="answerbutton">Bob <br>
+				<input type="radio" id="button2" name="button2" value="Marlin" class="answerbutton correct">Marlin<br>
+				<input type="radio" id="button3" name="button2" value="choice3" class="answerbutton">Ted <br>
+				<input type="radio" id="button4" name="button2" value="choice4" class="answerbutton">Coral<br>
+			 </div> <br>
+
+
+			<div class= "row">
+				<p id="question3"> In what year was Amazon founded? </p>
+				<input type="radio" id="button1" name="button2" value="choice1" class="answerbutton">1974 <br>
+				<input type="radio" id="button6" name="button2" value="1994" class="answerbutton correct"> 1994<br>
+				<input type="radio" id="button3" name="button2" value="choice3" class="answerbutton">1957 <br>
+				<input type="radio" id="button4" name="button2" value="choice4" class="answerbutton"> 2002 <br>
+			 </div>
+
+
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	
+		var correct = 0;
+		var incorrect=0;
+		var counter= 30;
+		var timer;
+		var game = $("#game")
+		var correctAnswers;
+		
+			$(document).ready(function(){
+				$("#questions").hide();
+			})
+			$("#start").click(function() {
+				$("#questions").show();
+				$("#start").hide();
+				$("#timer").html("<h2>Time remaining:" + counter + "</h2>");
+				timer = setInterval(countdown,1000);
+			})
+
+			//$(".container").click(checkQuestions);
+
+
+			function checkQuestions(e){
+				correct = 0;
+				if( $("#option2").prop("checked")) {
+					console.log("here");
+					correct++;
+				}
+				if( $("#choice1").prop("checked")) {
+					correct++;
+				}
+				if( $("#button2").prop("checked")) {
+					correct++;
+				} 
+				if($("#button6").prop("checked")) {
+					correct++;
+				} else {
+					incorrect++;
+				}
+				
+			}
+
+			function timeUp() {
+				
+				correctAnswers	= $(".correct").map(function () {
+					return this.value;
+				}).get().join(", ");
+
+				clearInterval(timer);
+				game.html("<h2> Time is up! </h2>");
+				game.append("<h3> The correct answers were: " + correctAnswers + "</h2>");
+				game.append("<h3> Correct answers: " + correct + "</h3>")
+				game.append("<h3> Incorrect answers: " + incorrect + "</h3>")
+				game.append("<button id='begin-again'> Start Over </button>");
+
+			}
+			/*]
+
+			function results() {
+				clearInterval(timer);
+				game.html("<h2> Here is how you did: </h2>");
+				;<button id='start-over'> Start Over </button>
+				;
+				");
+			}*/
+			function countdown() {
+				
+				counter--;
+				$("#timer").html("<h2>Time remaining:" + counter + "</h2>");
+				if(counter===0) {
+
+					alert("TIME UP");
+					timeUp();
+				}
+			}
+
+		/*function reset() {
+			counter= 30;
+		    correct=0;
+		    incorrect=0;
+		    $("#game").show();
+		} */
+
+		$(document).on("click", "#begin-again", function() {
+			console.log("start over");
+			window.location.reload();
+			console.log(counter);
+			
+		})	
+		$(document).on("click", ".answerbutton", function(e) {
+			checkQuestions(e);
+		})
+
+
+	</script>
+
+</body>
+</html> 

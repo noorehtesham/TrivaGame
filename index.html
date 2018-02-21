@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Totally Trivial Trivia</title>
+	<meta charset= "UTF-8">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+	
+	<div id="game">
+		<div id="timer"></div>
+		<button id="start" value="Start">Start</button>
+	</div>
+	
+
+
+	<div class="choices">
+
+
+</div>
+
+	<script type="text/javascript">
+var timeleft = 30;
+var timer;
+
+	var game = {
+	 correct: 0,
+	 incorrect: 0,
+	 currentquestion: 0,
+	 counter: timeleft,
+}
+	
+
+	
+
+// answer should be the answer string
+	var questionArray = [{
+		question: "Who is the CEO of pixar?",
+		choices: ["Jeff Bezos", "John Lasseter", "Noor Ehtesham", "Steve Jobs"],
+		answer1:1
+	}, {
+		question: "In the movie The Terminator, what is the name of the company that created Skynet?",
+		choices: ["Cyberdyne Systems", "Amazon", "MetLife", "Accenture"],
+		answer2:0
+	}, {
+		question: "What is the name of Nemo's dad in the movie 'Finding Nemo'?",
+		choices: ["Ted", "Bob", "Coral", "Marlin"],
+		answer3:3
+
+	}]
+	
+
+		$("#start").click(renderQuestions);
+
+
+
+function renderQuestions() {
+	
+	$("#game").empty();
+	
+	for (var i=0; i<questionArray.length; i++) {
+		console.log(i);
+		/*$("#game").append("<form id='form'>");*/
+		console.log(questionArray[i].question);
+		$("#game").text(questionArray[i].question);
+		for(var j=0; j< questionArray[i].choices.length; j++) {
+			$("#game").append("<input type='radio' name='radioo' value='"+questionArray[i].choices[j]+"'>"+questionArray[i].choices[j]+"</input></br>");
+		
+
+		
+		/*for (var k=0; k<questionArray.choices[i].length; i++) {
+			if (radios[i].checked) {
+				alert("true");
+			}*/
+		}
+
+	function timeTracker(){
+		game.counter--;
+		$("#timer").html(game.counter);
+		if(game.counter===0) {
+			console.log("TIME UP");
+		}
+
+
+	}
+	function loadQuestion() {
+		timer = setInterval(game.timeTracker, 1000);
+		$("#game").html("<h2>" + questionArray[this.currentquestion].question + "</h2>");
+
+	}
+
+	function nextQuestion(){
+		game.counter=timeleft;
+		$("#timer").html(game.counter);
+		game.currentquestion++;
+		game.loadQuestion();
+
+	}
+
+
+		var choice = $("input[name='radioo']:checked").val();
+		
+		
+	}	
+}	
+
+	</script>
+
+</body>
+</html>
